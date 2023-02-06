@@ -1,7 +1,8 @@
-import 'package:beer_api_app/ui/models/beer_container.dart';
-import 'package:beer_api_app/ui/models/homescreen_appbar.dart';
 import 'package:beer_api_app/ui/utils/colors.dart';
+import '../widgets/beer_container.dart';
+import '../widgets/home_screen_appbar.dart';
 import 'package:flutter/material.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: HomeScreenAppBar(),
       body: Expanded(
         child: ListView.builder(
           shrinkWrap: true,
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
             }),
       ),
       floatingActionButton: FloatingActionButton.large(
-          backgroundColor: primaryBrown,
+          backgroundColor: ColorPalette.primaryBrown,
           child: Text('Random beer', textAlign: TextAlign.center,),
           onPressed: () {
             print('tapped');
