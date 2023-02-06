@@ -1,3 +1,4 @@
+import 'package:beer_api_app/ui/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -15,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             toolbarHeight: 60,
             centerTitle: true,
             title: Text('Beer list'),
-            backgroundColor: Color(0xFFA67C53),
+            backgroundColor: primaryBrown,
             actions: [
               IconButton(
                   onPressed: () {
