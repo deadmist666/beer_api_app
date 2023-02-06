@@ -1,5 +1,7 @@
 import 'dart:ui';
 
-const primaryBrown = Color(0xFFA67C53);
-const primaryGray = Color(0xFFBFBFBF);
-const secondaryBlue = Color(0xFF5365A6);
+class ColorPalette {
+  static const primaryBrown = Color(0xFFA67C53);
+  static const primaryGray = Color(0xFFBFBFBF);
+  static const secondaryBlue = Color(0xFF5365A6);
+}
