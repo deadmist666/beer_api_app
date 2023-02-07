@@ -9,9 +9,7 @@ class BeerDetailsScreen extends StatelessWidget {
   const BeerDetailsScreen({
     Key? key,
     required this.beer,
-  }) : super(
-          key: key,
-        );
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
