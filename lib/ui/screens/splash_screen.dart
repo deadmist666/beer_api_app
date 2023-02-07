@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:beer_api_app/ui/screens/home_screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'home_screen.dart';
 
 Widget splashScreen = AnimatedSplashScreen(
   splash: Text(
