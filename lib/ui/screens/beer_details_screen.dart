@@ -22,7 +22,7 @@ class BeerDetailsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text(beer.image),
+          Image(image: beer.image),
           Text(beer.name),
           Text(beer.description),
         ],
