@@ -1,9 +1,9 @@
 class Beer {
-  String name;
-  String description;
-  String image;
+  final String name;
+  final String description;
+  final String image;
 
-  Beer({required this.name, required this.description, required this.image});
+  const Beer({required this.name, required this.description, required this.image});
 }
 
 List<Beer> fooBeer = [
