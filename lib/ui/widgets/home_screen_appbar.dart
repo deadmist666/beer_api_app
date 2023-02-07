@@ -1,34 +1,32 @@
-import 'package:beer_api_app/ui/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
+import 'package:beer_api_app/ui/utils/colors.dart';
 
-  const HomeScreenAppBar({Key? key, }) : super(key: key);
+class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const HomeScreenAppBar({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(60);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          AppBar(
-            toolbarHeight: 60,
-            centerTitle: true,
-            title: Text('Beer list'),
-            backgroundColor: ColorPalette.primaryBrown,
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    showSearch(
-                      context: context,
-                      delegate: CustomSearchDelegate(),
-                    );
-                  },
-                  icon: Icon(Icons.search))
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 60,
+        centerTitle: true,
+        title: Text('Beer list'),
+        backgroundColor: ColorPalette.primaryBrown,
+        actions: [
+          IconButton(
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: CustomSearchDelegate(),
+                );
+              },
+              icon: Icon(Icons.search))
         ],
       ),
     );
