@@ -4,9 +4,11 @@ class BeerContainer extends StatelessWidget {
   final String image;
   final String description;
 
-  const BeerContainer(
-      {Key? key, required this.image, required this.description})
-      : super(key: key);
+  const BeerContainer({
+    Key? key,
+    required this.image,
+    required this.description,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
