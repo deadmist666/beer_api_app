@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:beer_api_app/ui/utils/colors.dart';
 
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeScreenAppBar({
-    Key? key,
-  }) : super(key: key);
+  const HomeScreenAppBar({Key? key}) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(60);
