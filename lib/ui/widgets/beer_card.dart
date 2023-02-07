@@ -20,7 +20,14 @@ class BeerCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(beer.image),
+            Container(
+              height: 120,
+              width: 150,
+              child: Image(
+                image: beer.image,
+                fit: BoxFit.fill,
+              ),
+            ),
             Text(beer.name),
             Text(beer.description),
           ],
