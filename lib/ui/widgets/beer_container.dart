@@ -13,6 +13,7 @@ class BeerContainer extends StatelessWidget {
     return Container(
       color: Colors.grey,
       padding: EdgeInsets.all(60),
+      margin: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
