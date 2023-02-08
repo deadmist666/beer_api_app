@@ -24,7 +24,7 @@ class BeerCard extends StatelessWidget {
               height: 120,
               width: 150,
               child: Image(
-                image: beer.image,
+                image: NetworkImage(beer.image),
                 fit: BoxFit.fill,
               ),
             ),
