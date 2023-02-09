@@ -18,12 +18,20 @@ class BeerDetailsScreen extends StatelessWidget {
         toolbarHeight: 60,
         centerTitle: true,
         title: Text('Beer Details'),
-        backgroundColor: ColorPalette.primaryBrown,
+        backgroundColor: ColorPalette.primaryLimedOak,
       ),
       body: Column(
         children: [
-          Image(image: NetworkImage(beer.image)),
-          Text(beer.name),
+          Container(
+            height: 150,
+            width: 150,
+            child: Image(
+              image: NetworkImage(beer.image),
+              fit: BoxFit.scaleDown,
+            ),
+          ),
+          Text('Name: ${beer.name}'),
+          Text('Description:'),
           Text(beer.description),
         ],
       ),
