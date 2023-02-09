@@ -7,7 +7,7 @@ class ApiService {
   final String randomBeerUrl = 'https://api.punkapi.com/v2/beers/random';
   final String beerListUrl = 'https://api.punkapi.com/v2/beers';
 
-  Future<Beer> fetchSplashRandomBeer() async {
+  Future<Beer> fetchRandomBeer() async {
     final response = await get(Uri.parse(randomBeerUrl));
     List<dynamic> parsedJson = jsonDecode(response.body);
     if (response.statusCode == 200) {
