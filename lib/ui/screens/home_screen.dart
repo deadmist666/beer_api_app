@@ -1,3 +1,4 @@
+import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -33,10 +34,11 @@ class HomeScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.large(
-          backgroundColor: ColorPalette.primaryBrown,
+          backgroundColor: ColorPalette.primaryLimedOak,
           child: Text(
             'Random beer',
             textAlign: TextAlign.center,
+            style: AppTheme.labelMedium,
           ),
           onPressed: () {
             Navigator.push(
