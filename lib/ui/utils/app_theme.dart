@@ -9,6 +9,7 @@ class AppTheme {
     titleMedium: titleMedium,
     titleSmall: titleSmall,
     bodyMedium: bodyMedium,
+    labelMedium: labelMedium,
     bodySmall: bodySmall,
   );
 
@@ -52,5 +53,12 @@ class AppTheme {
     fontSize: 14,
     letterSpacing: 0.2,
     color: ColorPalette.secondaryWaikawaGray,
+  );
+
+  static final labelMedium = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    letterSpacing: 0.2,
+    color: ColorPalette.primaryGray,
   );
 }
