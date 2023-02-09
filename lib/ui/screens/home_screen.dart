@@ -8,19 +8,42 @@ import 'package:beer_api_app/ui/widgets/beer_card.dart';
 import 'package:beer_api_app/ui/widgets/home_screen_appbar.dart';
 import 'package:beer_api_app/ui/utils/colors.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  ScrollController controller = ScrollController();
+  late List<dynamic> beerList;
+  bool isLoading = false;
+  int page = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = ScrollController()..addListener(() => _scrollListener());
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeScreenAppBar(),
       body: FutureBuilder(
-        future: ApiService().fetchBeerList(),
+        future: ApiService().fetchBeerList(page),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<dynamic> beerList = snapshot.data!;
+            beerList = snapshot.data!;
             return ListView.builder(
+                controller: controller,
                 itemCount: beerList.length,
                 itemBuilder: (context, index) {
                   dynamic beer = beerList[index];
@@ -37,11 +60,24 @@ class HomeScreen extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTheme.labelMedium,
           ),
-          onPressed: () async{
-           final beer = await ApiService().fetchRandomBeer();
-           Navigator.push(context, MaterialPageRoute(builder: (context) => BeerDetailsScreen(beer: beer)));
-           print('tapped');
+          onPressed: () async {
+            final beer = await ApiService().fetchRandomBeer();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BeerDetailsScreen(beer: beer)));
+            print('tapped');
           }),
     );
+  }
+
+  void _scrollListener() {
+    if (controller.offset >= controller.position.maxScrollExtent) {
+      setState(() {
+        isLoading = true;
+        ApiService().fetchBeerList(page + 1);
+      });
+    }
+    ;
   }
 }
