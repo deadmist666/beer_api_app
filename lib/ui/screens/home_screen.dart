@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'dart:math';
-
 import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:beer_api_app/api/api_service.dart';
 import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
@@ -12,8 +10,6 @@ import 'package:beer_api_app/ui/utils/colors.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  Beer get randomBeer => fooBeer[Random().nextInt(fooBeer.length - 1)];
 
   @override
   Widget build(BuildContext context) {
