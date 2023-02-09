@@ -15,21 +15,29 @@ class BeerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Card(
-        color: Colors.grey,
-        margin: EdgeInsets.symmetric(vertical: 10),
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          side: BorderSide(color: Colors.black)
+        ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 120,
+              height: 150,
               width: 150,
               child: Image(
                 image: NetworkImage(beer.image),
-                fit: BoxFit.fill,
+                fit: BoxFit.scaleDown,
               ),
             ),
-            Text(beer.name),
-            Text(beer.description),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(beer.name),
+                Text(beer.tagLine),
+              ],
+            ),
           ],
         ),
       ),
