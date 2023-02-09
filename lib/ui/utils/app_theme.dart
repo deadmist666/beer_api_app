@@ -24,7 +24,7 @@ class AppTheme {
     fontWeight: FontWeight.bold,
     fontSize: 24,
     letterSpacing: 0.27,
-    color: ColorPalette.primaryBlack,
+    color: ColorPalette.primaryWhite,
   );
 
   static final titleMedium = TextStyle(
