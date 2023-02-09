@@ -1,3 +1,4 @@
+import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beer_api_app/ui/utils/colors.dart';
@@ -14,8 +15,8 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       appBar: AppBar(
         toolbarHeight: 60,
         centerTitle: true,
-        title: Text('Beer list'),
-        backgroundColor: ColorPalette.primaryBrown,
+        title: Text('Beer list', style: AppTheme.displayMedium,),
+        backgroundColor: ColorPalette.primaryLimedOak,
         actions: [
           IconButton(
               onPressed: () {
