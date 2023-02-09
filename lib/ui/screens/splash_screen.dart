@@ -1,6 +1,6 @@
-import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 
+import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:beer_api_app/api/api_service.dart';
 import 'package:beer_api_app/ui/screens/home_screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: AnimatedSplashScreen(
         splash: FutureBuilder(
-            future: ApiService().fetchSplashRandomBeer(),
+            future: ApiService().fetchRandomBeer(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Image.network(
