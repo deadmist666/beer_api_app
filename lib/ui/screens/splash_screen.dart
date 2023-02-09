@@ -1,3 +1,4 @@
+import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beer_api_app/api/api_service.dart';
@@ -23,7 +24,7 @@ class SplashScreen extends StatelessWidget {
             }),
         nextScreen: HomeScreen(),
         centered: true,
-        duration: 3000,
+        duration: 4500,
         splashIconSize: 500,
       ),
       bottomSheet: Row(
@@ -31,7 +32,7 @@ class SplashScreen extends StatelessWidget {
         children: [
           Text(
             'Beer of the day!',
-            style: TextStyle(fontSize: 32),
+            style: AppTheme.displayLarge,
           ),
         ],
       ),
