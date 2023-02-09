@@ -5,7 +5,8 @@ import 'package:beer_api_app/models/beer_details.dart';
 
 class ApiService {
   final String randomBeerUrl = 'https://api.punkapi.com/v2/beers/random';
-  final String beerListUrl = 'https://api.punkapi.com/v2/beers';
+  final String beerListUrl =
+      'https://api.punkapi.com/v2/beers?page=1&per_page=5';
 
   Future<Beer> fetchRandomBeer() async {
     final response = await get(Uri.parse(randomBeerUrl));
@@ -17,9 +18,10 @@ class ApiService {
     }
   }
 
-  Future<dynamic> fetchBeerList() async {
-    final response = await get(Uri.parse(beerListUrl));
-    List<dynamic> parsedJson = jsonDecode(response.body);
+  Future<dynamic> fetchBeerList(int index) async {
+    final response = await get(Uri.parse(beerListUrl)
+        .replace(queryParameters: {'page=1': 'page=$index'})); //page=$index
+    dynamic parsedJson = jsonDecode(response.body);
     if (response.statusCode == 200) {
       return parsedJson;
     } else {
