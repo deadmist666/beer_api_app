@@ -6,6 +6,7 @@ class AppTheme {
   static final textTheme = TextTheme(
     displayLarge: displayLarge,
     displayMedium: displayMedium,
+    displaySmall: displaySmall,
     titleMedium: titleMedium,
     titleSmall: titleSmall,
     bodyMedium: bodyMedium,
@@ -25,6 +26,12 @@ class AppTheme {
     fontSize: 24,
     letterSpacing: 0.27,
     color: ColorPalette.primaryWhite,
+  );
+  static final displaySmall = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    letterSpacing: 0.27,
+    color: ColorPalette.primaryBlack,
   );
 
   static final titleMedium = TextStyle(
