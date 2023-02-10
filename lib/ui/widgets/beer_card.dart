@@ -1,3 +1,4 @@
+import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
@@ -17,9 +18,8 @@ class BeerCard extends StatelessWidget {
       child: Card(
         color: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
-          side: BorderSide(color: Colors.black)
-        ),
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            side: BorderSide(color: Colors.black)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -31,12 +31,23 @@ class BeerCard extends StatelessWidget {
                 fit: BoxFit.scaleDown,
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(beer.name),
-                Text(beer.tagLine),
-              ],
+            Container(
+              width: 300,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    beer.name,
+                    style: AppTheme.displaySmall,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    beer.tagLine,
+                    style: AppTheme.titleMedium,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
