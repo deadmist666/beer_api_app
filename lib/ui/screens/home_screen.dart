@@ -17,8 +17,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController controller = ScrollController();
-  late List<dynamic> beerList;
-  bool isLoading = false;
+
+  List<Map<String, dynamic>> beerJsonList = [];
   int page = 1;
 
   @override
