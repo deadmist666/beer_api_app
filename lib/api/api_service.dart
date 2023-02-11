@@ -5,8 +5,10 @@ import 'package:beer_api_app/models/beer_details.dart';
 
 class ApiService {
   final String randomBeerUrl = 'https://api.punkapi.com/v2/beers/random';
-  final String beerListUrl =
-      'https://api.punkapi.com/v2/beers?page=1&per_page=5';
+
+  String beerListUrl(int index) {
+    return 'https://api.punkapi.com/v2/beers?page=${index.toString()}&per_page=5';
+  }
 
   Future<Beer> fetchRandomBeer() async {
     final response = await get(Uri.parse(randomBeerUrl));
