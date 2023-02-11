@@ -20,10 +20,9 @@ class ApiService {
     }
   }
 
-  Future<dynamic> fetchBeerList(int index) async {
-    final response = await get(Uri.parse(beerListUrl)
-        .replace(queryParameters: {'page=1': 'page=$index'})); //page=$index
-    dynamic parsedJson = jsonDecode(response.body);
+  Future<List<dynamic>> fetchBeerList(int index) async {
+    final response = await get(Uri.parse(beerListUrl(index)));
+    List<dynamic> parsedJson = jsonDecode(response.body);
     if (response.statusCode == 200) {
       return parsedJson;
     } else {
