@@ -23,8 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    getJsonBeerList(page);
     super.initState();
-    controller = ScrollController()..addListener(() => _scrollListener());
+    controller.addListener(() {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        getJsonBeerList(page);
+      }
+    });
   }
 
   @override
@@ -37,22 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeScreenAppBar(),
-      body: FutureBuilder(
-        future: ApiService().fetchBeerList(page),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            beerList = snapshot.data!;
-            return ListView.builder(
-                controller: controller,
-                itemCount: beerList.length,
-                itemBuilder: (context, index) {
-                  dynamic beer = beerList[index];
-                  return BeerCard(beer: Beer.fromJson(beer));
-                });
-          } else
-            return LinearProgressIndicator();
-        },
-      ),
+      body: ListView.builder(
+          controller: controller,
+          itemCount: beerJsonList.length,
+          itemBuilder: (context, index) {
+            return BeerCard(beer: Beer.fromJson(beerJsonList[index]));
+          }),
       floatingActionButton: FloatingActionButton.large(
           backgroundColor: ColorPalette.primaryLimedOak,
           child: Text(
@@ -72,13 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _scrollListener() {
-    if (controller.offset >= controller.position.maxScrollExtent) {
-      setState(() {
-        isLoading = true;
-        ApiService().fetchBeerList(page + 1);
-      });
+  void getJsonBeerList(int index) async {
+    List<dynamic> data = await ApiService().fetchBeerList(index);
+    for (int i = 0; i < data.length; i++) {
+      beerJsonList.add(data[i]);
     }
-    ;
+    setState(() {
+      page++;
+    });
   }
 }
