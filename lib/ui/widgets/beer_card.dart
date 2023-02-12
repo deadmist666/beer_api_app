@@ -7,10 +7,7 @@ import 'package:beer_api_app/models/beer_details.dart';
 class BeerCard extends StatelessWidget {
   final Beer beer;
 
-  const BeerCard({
-    Key? key,
-    required this.beer,
-  }) : super(key: key);
+  const BeerCard({Key? key, required this.beer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +15,9 @@ class BeerCard extends StatelessWidget {
       child: Card(
         color: Colors.white,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-            side: BorderSide(color: Colors.black)),
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          side: BorderSide(color: Colors.black),
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

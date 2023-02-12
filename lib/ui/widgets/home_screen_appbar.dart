@@ -55,7 +55,11 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back));
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
   }
 
   @override
@@ -134,7 +138,9 @@ class CustomSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-          onPressed: () => query = '', icon: Icon(Icons.backspace_outlined)),
+        onPressed: () => query = '',
+        icon: Icon(Icons.backspace_outlined),
+      ),
     ];
   }
 }
