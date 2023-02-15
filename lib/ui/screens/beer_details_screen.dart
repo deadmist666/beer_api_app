@@ -1,6 +1,6 @@
-import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 
+import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:beer_api_app/models/beer_details.dart';
 import 'package:beer_api_app/ui/utils/colors.dart';
 

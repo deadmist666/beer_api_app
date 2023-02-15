@@ -1,7 +1,7 @@
-import 'package:beer_api_app/ui/utils/app_theme.dart';
-import 'package:beer_api_app/ui/utils/colors.dart';
 import 'package:flutter/material.dart';
 
+import 'package:beer_api_app/ui/utils/app_theme.dart';
+import 'package:beer_api_app/ui/utils/colors.dart';
 import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
 import 'package:beer_api_app/models/beer_details.dart';
 

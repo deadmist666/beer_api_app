@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import 'package:beer_api_app/repositories/beer_repository.dart';
 import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:beer_api_app/ui/screens/home_screen.dart';
