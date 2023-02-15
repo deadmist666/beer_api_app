@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:beer_api_app/api/api_service.dart';
+import 'package:beer_api_app/repositories/beer_repository.dart';
 import 'package:beer_api_app/ui/widgets/home_screen_appbar.dart';
 import 'package:beer_api_app/ui/widgets/home_screen_body.dart';
 import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
 import 'package:beer_api_app/ui/utils/colors.dart';
 import 'package:beer_api_app/ui/utils/app_theme.dart';
+
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
             style: AppTheme.labelMedium,
           ),
           onPressed: () async {
-            final beer = await ApiService().fetchRandomBeer();
+            final beer = await Repository().fetchRandomBeer();
             Navigator.push(
               context,
               MaterialPageRoute(
