@@ -34,11 +34,16 @@ class ApiService {
     }
   }
 
-  Future<List<dynamic>> fetchSearchResult(String name) async {
+  Future<List<Beer>> fetchSearchResult(String name) async {
     final response = await get(Uri.parse(beerNameUrl(name)));
     List<dynamic> parsedJson = jsonDecode(response.body);
+    List<Beer> beerList = [];
     if (response.statusCode == 200) {
-      return parsedJson;
+      for (var item in parsedJson) {
+        Beer beer = Beer.fromJson(item);
+        beerList.add(beer);
+      }
+      return beerList;
     } else {
       throw Exception('Failed to load Beer');
     }
