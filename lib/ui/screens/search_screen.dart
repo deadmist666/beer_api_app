@@ -30,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
         centerTitle: true,
         title: TextField(
           textAlignVertical: TextAlignVertical.center,
-          style: AppTheme.labelMedium,
+          style: AppTheme.labelLarge,
           autofocus: true,
           controller: textController,
           decoration: InputDecoration(
@@ -38,6 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
               color: ColorPalette.primaryWhite,
               icon: Icon(
                 Icons.backspace_outlined,
+                size: 25,
               ),
               onPressed: () {
                 setState(() {
@@ -47,13 +48,20 @@ class _SearchScreenState extends State<SearchScreen> {
               },
             ),
             hintText: 'Search beer',
-            hintStyle: AppTheme.labelMedium,
+            hintStyle: AppTheme.labelLarge,
             border: InputBorder.none,
           ),
           onChanged: (value) => filterBeerListBySearchQuery(value),
           onSubmitted: (value) => filterBeerListBySearchQuery(value),
         ),
         backgroundColor: ColorPalette.primaryLimedOak,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_outlined,
+            size: 25,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: StreamBuilder(
           stream: Repository()
@@ -118,7 +126,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void filterBeerListBySearchQuery(String query) async {
-
     beerList = await Repository().fetchBeerSearchResult(query);
 
     setState(() {
