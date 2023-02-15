@@ -64,7 +64,7 @@ class AppTheme {
 
   static final labelMedium = TextStyle(
     fontWeight: FontWeight.w400,
-    fontSize: 14,
+    fontSize: 16,
     letterSpacing: 0.2,
     color: ColorPalette.primaryWhite,
   );
