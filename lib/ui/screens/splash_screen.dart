@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+
+import 'package:beer_api_app/repositories/beer_repository.dart';
 import 'package:beer_api_app/ui/utils/app_theme.dart';
-import 'package:beer_api_app/api/api_service.dart';
 import 'package:beer_api_app/ui/screens/home_screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:beer_api_app/models/beer_details.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -13,11 +15,12 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: AnimatedSplashScreen(
         splash: FutureBuilder(
-            future: ApiService().fetchRandomBeer(),
+            future: Repository().fetchRandomBeer(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                final Beer beer = snapshot.data!;
                 return Image.network(
-                  snapshot.data!.image,
+                  beer.image
                 );
               }
               return LinearProgressIndicator();

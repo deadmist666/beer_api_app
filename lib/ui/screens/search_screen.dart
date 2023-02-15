@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:beer_api_app/api/api_service.dart';
+import 'package:beer_api_app/repositories/beer_repository.dart';
 import 'package:beer_api_app/models/beer_details.dart';
+import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
 import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:beer_api_app/ui//utils/colors.dart';
-import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -36,7 +36,9 @@ class _SearchScreenState extends State<SearchScreen> {
           decoration: InputDecoration(
             suffixIcon: IconButton(
               color: ColorPalette.primaryWhite,
-              icon: Icon(Icons.backspace_outlined,),
+              icon: Icon(
+                Icons.backspace_outlined,
+              ),
               onPressed: () {
                 textController.text = '';
                 filteredBeerList.length = 0;
@@ -47,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
             border: InputBorder.none,
           ),
           onChanged: (value) {
-            if(value.isNotEmpty){
+            if (value.isNotEmpty) {
               filterBeerListBySearchQuery(value);
             } else {
               filteredBeerList.length = 0;
@@ -58,8 +60,9 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: ColorPalette.primaryLimedOak,
       ),
       body: StreamBuilder(
-          stream:
-              ApiService().fetchSearchResult(textController.text).asStream(),
+          stream: Repository()
+              .fetchBeerSearchResult(textController.text)
+              .asStream(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(
@@ -119,8 +122,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void filterBeerListBySearchQuery(String query) async {
-    beerList = await ApiService().fetchSearchResult(query);
-
     setState(() {
       filteredBeerList = beerList
           .where(
