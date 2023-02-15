@@ -7,9 +7,11 @@ class AppTheme {
     displayLarge: displayLarge,
     displayMedium: displayMedium,
     displaySmall: displaySmall,
+    titleLarge: titleLarge,
     titleMedium: titleMedium,
     titleSmall: titleSmall,
     bodyMedium: bodyMedium,
+    labelLarge: labelLarge,
     labelMedium: labelMedium,
     bodySmall: bodySmall,
   );
@@ -30,6 +32,13 @@ class AppTheme {
   static final displaySmall = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 16,
+    letterSpacing: 0.18,
+    color: ColorPalette.primaryBlack,
+  );
+
+  static final titleLarge = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 24,
     letterSpacing: 0.27,
     color: ColorPalette.primaryBlack,
   );
@@ -60,6 +69,13 @@ class AppTheme {
     fontSize: 14,
     letterSpacing: 0.2,
     color: ColorPalette.secondaryWaikawaGray,
+  );
+
+  static final labelLarge = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 22,
+    letterSpacing: 0.24,
+    color: ColorPalette.primaryWhite,
   );
 
   static final labelMedium = TextStyle(
