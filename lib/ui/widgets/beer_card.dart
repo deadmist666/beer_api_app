@@ -1,4 +1,5 @@
 import 'package:beer_api_app/ui/utils/app_theme.dart';
+import 'package:beer_api_app/ui/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
@@ -13,10 +14,13 @@ class BeerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Card(
-        color: Colors.white,
+        color: ColorPalette.primaryWhite,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
-          side: BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+          side: BorderSide(
+            color: ColorPalette.primaryBlack,
+            width: 1.5,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -25,12 +29,10 @@ class BeerCard extends StatelessWidget {
               height: 150,
               width: 100,
               child: Image(
-                image: NetworkImage(beer.image),
-                fit: BoxFit.scaleDown,
+                image: NetworkImage(beer.image, scale: 7.5),
               ),
             ),
-            Container(
-              width: 300,
+            Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,10 +41,15 @@ class BeerCard extends StatelessWidget {
                     beer.name,
                     style: AppTheme.displaySmall,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 30),
                   Text(
                     beer.tagLine,
                     style: AppTheme.titleMedium,
+                  ),
+                  SizedBox(height: 30),
+                  Text(
+                    beer.firstBrewed,
+                    style: AppTheme.titleSmall,
                   ),
                 ],
               ),
