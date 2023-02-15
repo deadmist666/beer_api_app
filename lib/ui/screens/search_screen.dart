@@ -40,21 +40,17 @@ class _SearchScreenState extends State<SearchScreen> {
                 Icons.backspace_outlined,
               ),
               onPressed: () {
-                textController.text = '';
-                filteredBeerList.length = 0;
+                setState(() {
+                  textController.clear();
+                  filteredBeerList.clear();
+                });
               },
             ),
             hintText: 'Search beer',
             hintStyle: AppTheme.labelMedium,
             border: InputBorder.none,
           ),
-          onChanged: (value) {
-            if (value.isNotEmpty) {
-              filterBeerListBySearchQuery(value);
-            } else {
-              filteredBeerList.length = 0;
-            }
-          },
+          onChanged: (value) => filterBeerListBySearchQuery(value),
           onSubmitted: (value) => filterBeerListBySearchQuery(value),
         ),
         backgroundColor: ColorPalette.primaryLimedOak,
@@ -122,6 +118,9 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void filterBeerListBySearchQuery(String query) async {
+
+    beerList = await Repository().fetchBeerSearchResult(query);
+
     setState(() {
       filteredBeerList = beerList
           .where(
