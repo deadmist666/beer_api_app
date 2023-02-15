@@ -1,3 +1,4 @@
+import 'package:beer_api_app/ui/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beer_api_app/ui/utils/app_theme.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primaryIconTheme: IconThemeData(color: ColorPalette.primaryWhite),
         textTheme: AppTheme.textTheme,
       ),
       home: SplashScreen(),
