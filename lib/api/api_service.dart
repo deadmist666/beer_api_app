@@ -6,7 +6,7 @@ class ApiService {
   final String randomBeerUrl = 'https://api.punkapi.com/v2/beers/random';
 
   String beerListUrl(int index) {
-    return 'https://api.punkapi.com/v2/beers?page=${index.toString()}&per_page=5';
+    return 'https://api.punkapi.com/v2/beers?page=${index.toString()}&per_page=10';
   }
 
   String beerNameUrl(String name) {
