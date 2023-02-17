@@ -1,3 +1,4 @@
+import 'package:beer_api_app/ui/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beer_api_app/repositories/beer_repository.dart';
@@ -18,11 +19,9 @@ class SplashScreen extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final Beer beer = snapshot.data!;
-                return Image.network(
-                  beer.image
-                );
+                return Image.network(beer.image);
               }
-              return LinearProgressIndicator();
+              return LoadingIndicator();
             }),
         nextScreen: HomeScreen(),
         centered: true,
