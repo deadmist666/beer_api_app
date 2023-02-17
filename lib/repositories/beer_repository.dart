@@ -9,7 +9,7 @@ class Repository {
     return beer;
   }
 
-  Future<List<Beer>> fetchBeerList(int index) async {
+  Future<List<Beer>> fetchBeerList([int index = 1]) async {
     final beerList = await ApiService().fetchBeerList(index);
     return beerList.map((e) => Beer.fromJson(e)).toList();
   }
