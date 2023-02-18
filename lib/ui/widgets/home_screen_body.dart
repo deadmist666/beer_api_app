@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beer_api_app/bloc/beer_bloc.dart';
+import 'package:beer_api_app/bloc/home_screen_beer_list_bloc/beer_bloc.dart';
 import 'package:beer_api_app/ui/widgets/beer_card.dart';
 import 'package:beer_api_app/ui/widgets/loading_widget.dart';
 
