@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => BeerBloc()..add(BeerFetched()),
+          create: (_) => HomeScreenBeerListBloc()..add(HomeScreenBeerListFetched()),
         ),
       ],
       child: MaterialApp(

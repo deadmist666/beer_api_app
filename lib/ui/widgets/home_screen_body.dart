@@ -14,25 +14,25 @@ class HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
-  late BeerBloc beerBloc;
+  late HomeScreenBeerListBloc beerBloc;
   ScrollController controller = ScrollController();
 
   @override
   void initState() {
     controller.addListener(() => onScroll());
-    beerBloc = context.read<BeerBloc>();
+    beerBloc = context.read<HomeScreenBeerListBloc>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BeerBloc, BeerState>(
+    return BlocBuilder<HomeScreenBeerListBloc, HomeScreenBeerListState>(
         bloc: beerBloc,
         builder: (context, state) {
-          if (state is BeerInitial) {
+          if (state is HomeScreenBeerListInitial) {
             return LoadingIndicator();
           }
-          if (state is BeerLoaded) {
+          if (state is HomeScreenBeerListLoaded) {
             if (state.beers.isEmpty) {
               return Center(child: Text('No beer'));
             }
@@ -60,7 +60,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     final maxScroll = controller.position.maxScrollExtent;
     final currentScroll = controller.position.pixels;
     if (currentScroll == maxScroll) {
-      beerBloc.add(BeerFetched());
+      beerBloc.add(HomeScreenBeerListFetched());
     }
   }
 }

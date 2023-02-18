@@ -1,11 +1,11 @@
 part of 'beer_bloc.dart';
 
-abstract class BeerEvent extends Equatable {
-  const BeerEvent();
+abstract class HomeScreenBeerListEvent extends Equatable {
+  const HomeScreenBeerListEvent();
 
   @override
   List<Object> get props => [];
 }
 
 
-class BeerFetched extends BeerEvent {}
+class HomeScreenBeerListFetched extends HomeScreenBeerListEvent {}

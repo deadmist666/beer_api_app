@@ -8,21 +8,21 @@ part 'beer_event.dart';
 
 part 'beer_state.dart';
 
-class BeerBloc extends Bloc<BeerEvent, BeerState> {
-  BeerBloc() : super(BeerInitial()) {
-    on<BeerFetched>((event, emit) async {
+class HomeScreenBeerListBloc extends Bloc<HomeScreenBeerListEvent, HomeScreenBeerListState> {
+  HomeScreenBeerListBloc() : super(HomeScreenBeerListInitial()) {
+    on<HomeScreenBeerListFetched>((event, emit) async {
       List<Beer> beers;
       try {
-        if (state is BeerInitial) {
+        if (state is HomeScreenBeerListInitial) {
           beers = await Repository().fetchBeerList();
-          emit(BeerLoaded(beers: beers));
+          emit(HomeScreenBeerListLoaded(beers: beers));
         } else {
-          BeerLoaded beerLoaded = state as BeerLoaded;
+          HomeScreenBeerListLoaded beerLoaded = state as HomeScreenBeerListLoaded;
           beers = await Repository().fetchBeerList(beerLoaded.beers.length);
-          emit(BeerLoaded.copyWith(beerLoaded.beers + beers));
+          emit(HomeScreenBeerListLoaded.copyWith(beerLoaded.beers + beers));
         }
       } catch (_) {
-        emit(BeerError());
+        emit(HomeScreenBeerListError());
       }
     });
   }

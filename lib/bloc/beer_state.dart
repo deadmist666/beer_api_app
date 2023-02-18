@@ -1,23 +1,23 @@
 part of 'beer_bloc.dart';
 
-abstract class BeerState extends Equatable {
-  const BeerState();
+abstract class HomeScreenBeerListState extends Equatable {
+  const HomeScreenBeerListState();
 
   @override
   List<Object> get props => [];
 }
 
-class BeerInitial extends BeerState {}
+class HomeScreenBeerListInitial extends HomeScreenBeerListState {}
 
-class BeerError extends BeerState {}
+class HomeScreenBeerListError extends HomeScreenBeerListState {}
 
-class BeerLoaded extends BeerState {
+class HomeScreenBeerListLoaded extends HomeScreenBeerListState {
   final List<Beer> beers;
 
-  BeerLoaded({this.beers = const <Beer>[]});
+  HomeScreenBeerListLoaded({this.beers = const <Beer>[]});
 
-  factory BeerLoaded.copyWith(List<Beer> beers) {
-    return BeerLoaded(beers: beers);
+  factory HomeScreenBeerListLoaded.copyWith(List<Beer> beers) {
+    return HomeScreenBeerListLoaded(beers: beers);
   }
 
   @override
