@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:beer_api_app/repositories/beer_repository.dart';
-import 'package:beer_api_app/models/beer_details.dart';
-import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
+import 'dart:async';
+
+import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:beer_api_app/bloc/search_screen_beer_bloc/search_beer_bloc.dart';
+import 'package:beer_api_app/ui/widgets/search_beer_list_tile_widget.dart';
+import 'package:beer_api_app/models/opened_beers_model.dart';
+import 'package:beer_api_app/ui/widgets/loading_widget.dart';
 import 'package:beer_api_app/ui/utils/app_theme.dart';
 import 'package:beer_api_app/ui//utils/colors.dart';
 
@@ -14,25 +20,25 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController textController = TextEditingController();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final scrollController = ScrollController();
+  late SearchBeerBloc beerBloc;
+  final textController = TextEditingController();
+  Timer? debounceTimer;
 
-  List<Beer> beerList = [];
-  List<Beer> filteredBeerList = [];
-  List<Beer> openedBeerHistory = [];
+  @override
+  void initState() {
+    super.initState();
+    beerBloc = context.read<SearchBeerBloc>();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final beerHistory =
+        Provider.of<OpenedBeersModel>(context).openedBeersHistory;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 60,
-        centerTitle: true,
         title: TextField(
-          textAlignVertical: TextAlignVertical.center,
-          style: AppTheme.labelLarge,
-          autofocus: true,
           controller: textController,
+          onChanged: onSearchChanged,
           decoration: InputDecoration(
             suffixIcon: IconButton(
               color: ColorPalette.primaryWhite,
@@ -41,106 +47,65 @@ class _SearchScreenState extends State<SearchScreen> {
                 size: 25,
               ),
               onPressed: () {
-                setState(() {
-                  textController.clear();
-                  filteredBeerList.clear();
-                });
+                textController.clear();
+                beerBloc.add(SearchBeerClearedQuery());
               },
             ),
             hintText: 'Search beer',
             hintStyle: AppTheme.labelLarge,
             border: InputBorder.none,
           ),
-          onChanged: (value) => filterBeerListBySearchQuery(value),
-          onSubmitted: (value) => filterBeerListBySearchQuery(value),
+          autofocus: true,
+          textAlignVertical: TextAlignVertical.center,
+          style: AppTheme.labelLarge,
         ),
-        backgroundColor: ColorPalette.primaryLimedOak,
         leading: IconButton(
+          onPressed: () => Navigator.pop(context),
           icon: Icon(
             Icons.arrow_back_outlined,
             size: 25,
           ),
-          onPressed: () => Navigator.pop(context),
         ),
+        centerTitle: true,
+        toolbarHeight: 60,
+        backgroundColor: ColorPalette.primaryLimedOak,
       ),
-      body: StreamBuilder(
-          stream: Repository()
-              .fetchBeerSearchResult(textController.text)
-              .asStream(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                controller: scrollController,
-                itemCount: filteredBeerList.length,
-                itemBuilder: (context, index) {
-                  Beer beer = filteredBeerList[index];
-                  return ListTile(
-                    trailing: Icon(Icons.arrow_back_ios),
-                    title: Text(
-                      beer.name,
-                      style: AppTheme.displaySmall,
-                    ),
-                    onTap: () {
-                      beerHistoryService(beer);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BeerDetailsScreen(beer: beer),
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            } else if (textController.text.isEmpty) {
-              return ListView.builder(
-                  itemCount: openedBeerHistory.length,
-                  itemBuilder: (context, index) {
-                    Beer beer = openedBeerHistory[index];
-                    return ListTile(
-                      trailing: Icon(Icons.arrow_back_ios),
-                      title: Text(
-                        beer.name,
-                        style: AppTheme.displaySmall,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BeerDetailsScreen(beer: beer),
-                          ),
-                        );
-                      },
-                    );
-                  });
+      body: BlocBuilder<SearchBeerBloc, SearchBeerState>(
+          bloc: beerBloc,
+          builder: (context, state) {
+            if (state is SearchBeerInitial) {
+              return SearchBeerListView(beers: beerHistory);
+            } else if (state is SearchBeerHistoryInitial) {
+              return SearchBeerListView(beers: beerHistory);
+            } else if (state is SearchBeerLoading) {
+              return LoadingIndicator();
+            } else if (state is SearchBeerLoaded) {
+              return SearchBeerListView(beers: state.beers!);
             } else {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('No results found.'),
-                ],
-              );
+              return Text('error');
             }
           }),
     );
   }
 
-  void filterBeerListBySearchQuery(String query) async {
-    beerList = await Repository().fetchBeerSearchResult(query);
-
-    setState(() {
-      filteredBeerList = beerList
-          .where(
-              (beer) => beer.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+  void onSearchChanged(String query) {
+    if (debounceTimer?.isActive ?? false) {
+      debounceTimer!.cancel();
+    }
+    debounceTimer = Timer(Duration(milliseconds: 300), () {
+      if (query.isNotEmpty) {
+        beerBloc.add(SearchBeerChangedQuery(query));
+      } else {
+        beerBloc.add(SearchBeerClearedQuery());
+      }
     });
   }
 
-  void beerHistoryService(Beer beer) {
-    if (openedBeerHistory.length > 6) {
-      openedBeerHistory.removeLast();
-    } else {
-      openedBeerHistory.insert(0, beer);
-    }
+  @override
+  void dispose() {
+    beerBloc.close();
+    textController.dispose();
+    debounceTimer?.cancel();
+    super.dispose();
   }
 }
