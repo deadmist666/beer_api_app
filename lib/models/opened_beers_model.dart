@@ -11,7 +11,7 @@ class OpenedBeersModel extends ChangeNotifier {
     if (_openedBeersHistory.length > 6) {
       _openedBeersHistory.removeAt(0);
     }
-    _openedBeersHistory.add(beer);
+    _openedBeersHistory.insert(0, beer);
     notifyListeners();
   }
 }
