@@ -103,7 +103,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
-    beerBloc.close();
     textController.dispose();
     debounceTimer?.cancel();
     super.dispose();
