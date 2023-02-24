@@ -16,30 +16,18 @@ class ApiService {
   Future<dynamic> fetchRandomBeer() async {
     final response = await get(Uri.parse(randomBeerUrl));
     List<dynamic> parsedJson = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      return parsedJson;
-    } else {
-      throw Exception('Failed to load Beer');
-    }
+    return parsedJson;
   }
 
   Future<List<dynamic>> fetchBeerList(int index) async {
     final response = await get(Uri.parse(beerListUrl(index)));
     List<dynamic> parsedJson = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      return parsedJson;
-    } else {
-      throw Exception('Failed to load Beer');
-    }
+    return parsedJson;
   }
 
   Future<List<dynamic>> fetchSearchResult(String query) async {
     final response = await get(Uri.parse(beerNameUrl(query)));
     List<dynamic> parsedJson = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      return parsedJson;
-    } else {
-      throw Exception('Failed to load Beer');
-    }
+    return parsedJson;
   }
 }
