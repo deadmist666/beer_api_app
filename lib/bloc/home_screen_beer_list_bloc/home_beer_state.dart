@@ -1,4 +1,4 @@
-part of 'beer_bloc.dart';
+part of 'home_beer_bloc.dart';
 
 abstract class HomeScreenBeerListState extends Equatable {
   const HomeScreenBeerListState();
@@ -9,7 +9,11 @@ abstract class HomeScreenBeerListState extends Equatable {
 
 class HomeScreenBeerListInitial extends HomeScreenBeerListState {}
 
-class HomeScreenBeerListError extends HomeScreenBeerListState {}
+class HomeScreenBeerListError extends HomeScreenBeerListState {
+  final String errorMessage;
+
+  HomeScreenBeerListError(this.errorMessage);
+}
 
 class HomeScreenBeerListLoaded extends HomeScreenBeerListState {
   final List<Beer> beers;

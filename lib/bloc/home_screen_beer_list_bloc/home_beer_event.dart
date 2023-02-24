@@ -1,4 +1,4 @@
-part of 'beer_bloc.dart';
+part of 'home_beer_bloc.dart';
 
 abstract class HomeScreenBeerListEvent extends Equatable {
   const HomeScreenBeerListEvent();
