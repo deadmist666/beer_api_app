@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beer_api_app/bloc/home_screen_beer_list_bloc/beer_bloc.dart';
+import 'package:beer_api_app/bloc/home_screen_beer_list_bloc/home_beer_bloc.dart';
 import 'package:beer_api_app/ui/widgets/beer_card.dart';
 import 'package:beer_api_app/ui/widgets/loading_widget.dart';
+import 'package:beer_api_app/ui/widgets/error_message_widget.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
   @override
   void initState() {
-    controller.addListener(() => onScroll());
+    controller.addListener(onScroll);
     beerBloc = context.read<HomeScreenBeerListBloc>();
     super.initState();
   }
@@ -44,15 +45,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     return LinearProgressIndicator();
                   return BeerCard(beer: state.beers[index]);
                 });
+          } else if (state is HomeScreenBeerListError) {
+            return ErrorMessage(errorMessage: state.errorMessage);
           } else {
-            return Text('Error');
+            return ErrorMessage(errorMessage: 'Unexpected error');
           }
         });
   }
 
   @override
   void dispose() {
-    controller.removeListener(() => onScroll);
+    controller.removeListener(onScroll);
     super.dispose();
   }
 

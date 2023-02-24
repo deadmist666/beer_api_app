@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:beer_api_app/bloc/search_screen_beer_bloc/search_beer_bloc.dart';
 import 'package:beer_api_app/ui/widgets/search_beer_list_tile_widget.dart';
+import 'package:beer_api_app/ui/widgets/error_message_widget.dart';
 import 'package:beer_api_app/models/opened_beers_model.dart';
 import 'package:beer_api_app/ui/widgets/loading_widget.dart';
 import 'package:beer_api_app/ui/utils/app_theme.dart';
@@ -81,8 +82,10 @@ class _SearchScreenState extends State<SearchScreen> {
               return LoadingIndicator();
             } else if (state is SearchBeerLoaded) {
               return SearchBeerListView(beers: state.beers!);
+            } else if (state is SearchBeerError) {
+              return ErrorMessage(errorMessage: state.errorMessage);
             } else {
-              return Text('error');
+              return ErrorMessage(errorMessage: 'Unexpected error');
             }
           }),
     );
