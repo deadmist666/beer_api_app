@@ -14,56 +14,73 @@ class HomeScreenBody extends StatefulWidget {
   State<HomeScreenBody> createState() => _HomeScreenBodyState();
 }
 
-class _HomeScreenBodyState extends State<HomeScreenBody> {
-  late HomeScreenBeerListBloc beerBloc;
-  ScrollController controller = ScrollController();
+class _HomeScreenBodyState extends State<HomeScreenBody>
+    with AutomaticKeepAliveClientMixin<HomeScreenBody> {
+  final ScrollController _controller = ScrollController();
+  late final HomeScreenBeerListBloc _beerBloc;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
-    controller.addListener(onScroll);
-    beerBloc = context.read<HomeScreenBeerListBloc>();
     super.initState();
+    _beerBloc = context.read<HomeScreenBeerListBloc>();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _controller.addListener(_onScroll);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return BlocBuilder<HomeScreenBeerListBloc, HomeScreenBeerListState>(
-        bloc: beerBloc,
-        builder: (context, state) {
-          if (state is HomeScreenBeerListInitial) {
+      bloc: _beerBloc,
+      builder: (context, state) {
+        switch (state.runtimeType) {
+          case HomeScreenBeerListInitial:
             return LoadingIndicator();
-          }
-          if (state is HomeScreenBeerListLoaded) {
-            if (state.beers.isEmpty) {
-              return Center(child: Text('No beer'));
+          case HomeScreenBeerListLoaded:
+            final beers = (state as HomeScreenBeerListLoaded).beers;
+            if (beers.isEmpty) {
+              return const Center(child: Text('No beer'));
             }
             return ListView.builder(
-                controller: controller,
-                itemCount: state.beers.length + 1,
-                itemBuilder: (context, index) {
-                  if (index >= state.beers.length)
-                    return LinearProgressIndicator();
-                  return BeerCard(beer: state.beers[index]);
-                });
-          } else if (state is HomeScreenBeerListError) {
-            return ErrorMessage(errorMessage: state.errorMessage);
-          } else {
+              controller: _controller,
+              itemCount: beers.length + 1,
+              itemBuilder: (context, index) {
+                if (index >= beers.length) {
+                  return LinearProgressIndicator();
+                }
+                return BeerCard(beer: beers[index]);
+              },
+            );
+          case HomeScreenBeerListError:
+            final errorMessage =
+                (state as HomeScreenBeerListError).errorMessage;
+            return ErrorMessage(errorMessage: errorMessage);
+          default:
             return ErrorMessage(errorMessage: 'Unexpected error');
-          }
-        });
+        }
+      },
+    );
   }
 
   @override
   void dispose() {
-    controller.removeListener(onScroll);
+    _controller.removeListener(_onScroll);
     super.dispose();
   }
 
-  void onScroll() {
-    final maxScroll = controller.position.maxScrollExtent;
-    final currentScroll = controller.position.pixels;
+  void _onScroll() {
+    final maxScroll = _controller.position.maxScrollExtent;
+    final currentScroll = _controller.position.pixels;
     if (currentScroll == maxScroll) {
-      beerBloc.add(HomeScreenBeerListFetched());
+      _beerBloc.add(HomeScreenBeerListFetched());
     }
   }
 }
