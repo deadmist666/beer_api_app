@@ -10,9 +10,9 @@ abstract class SearchBeerState extends Equatable {
 class SearchBeerInitial extends SearchBeerState {}
 
 class SearchBeerHistoryInitial extends SearchBeerState {
- final List<Beer> beers;
+  final List<Beer> beers;
 
-  SearchBeerHistoryInitial(this.beers);
+  const SearchBeerHistoryInitial(this.beers);
 }
 
 class SearchBeerLoading extends SearchBeerState {}
@@ -26,5 +26,5 @@ class SearchBeerLoaded extends SearchBeerState {
 class SearchBeerError extends SearchBeerState {
   final String errorMessage;
 
-  SearchBeerError(this.errorMessage);
+  const SearchBeerError(this.errorMessage);
 }

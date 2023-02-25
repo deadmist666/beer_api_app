@@ -10,7 +10,7 @@ abstract class SearchBeerEvent extends Equatable {
 class SearchBeerChangedQuery extends SearchBeerEvent {
   final String query;
 
-  SearchBeerChangedQuery(this.query);
+  const SearchBeerChangedQuery(this.query);
 }
 
 class SearchBeerClearedQuery extends SearchBeerEvent {}
