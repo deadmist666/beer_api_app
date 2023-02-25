@@ -7,5 +7,4 @@ abstract class HomeScreenBeerListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
 class HomeScreenBeerListFetched extends HomeScreenBeerListEvent {}

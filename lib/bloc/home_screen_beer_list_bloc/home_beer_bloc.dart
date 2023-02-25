@@ -10,25 +10,33 @@ part 'home_beer_state.dart';
 
 class HomeScreenBeerListBloc
     extends Bloc<HomeScreenBeerListEvent, HomeScreenBeerListState> {
+  final List<List<Beer>> _loadedBeerPages = [];
+
   HomeScreenBeerListBloc() : super(HomeScreenBeerListInitial()) {
     on<HomeScreenBeerListFetched>((event, emit) async {
       List<Beer> beers;
       if (state is HomeScreenBeerListInitial) {
         beers = await Repository()
             .fetchBeerList()
-            .timeout(Duration(milliseconds: 5000), onTimeout: () {
+            .timeout(const Duration(milliseconds: 5000), onTimeout: () {
           beers = [];
-          emit(HomeScreenBeerListError(
+          emit(const HomeScreenBeerListError(
               'The beer list was not loaded.\n\nCheck your internet connection and try again.'));
           return beers;
         });
         if (beers.isNotEmpty) {
+          _loadedBeerPages.add(beers);
           emit(HomeScreenBeerListLoaded(beers: beers));
         }
-      } else {
-        HomeScreenBeerListLoaded beerLoaded = state as HomeScreenBeerListLoaded;
-        beers = await Repository().fetchBeerList(beerLoaded.beers.length);
-        emit(HomeScreenBeerListLoaded.copyWith(beerLoaded.beers + beers));
+      } else if (state is HomeScreenBeerListLoaded) {
+        final loadedBeerList = state as HomeScreenBeerListLoaded;
+        final loadedPagesCount = _loadedBeerPages.length;
+        beers = await Repository().fetchBeerList(loadedPagesCount + 1);
+        if (beers.isNotEmpty) {
+          _loadedBeerPages.add(beers);
+          emit(HomeScreenBeerListLoaded.copyWith(
+              loadedBeerList.beers + beers, loadedPagesCount + 1));
+        }
       }
     });
   }

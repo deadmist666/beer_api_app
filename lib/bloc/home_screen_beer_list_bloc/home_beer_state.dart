@@ -12,16 +12,18 @@ class HomeScreenBeerListInitial extends HomeScreenBeerListState {}
 class HomeScreenBeerListError extends HomeScreenBeerListState {
   final String errorMessage;
 
-  HomeScreenBeerListError(this.errorMessage);
+  const HomeScreenBeerListError(this.errorMessage);
 }
 
 class HomeScreenBeerListLoaded extends HomeScreenBeerListState {
   final List<Beer> beers;
+  final int loadedBeerPageIndex;
 
-  HomeScreenBeerListLoaded({this.beers = const <Beer>[]});
+  const HomeScreenBeerListLoaded(
+      {this.beers = const <Beer>[], this.loadedBeerPageIndex = 1});
 
-  factory HomeScreenBeerListLoaded.copyWith(List<Beer> beers) {
-    return HomeScreenBeerListLoaded(beers: beers);
+  factory HomeScreenBeerListLoaded.copyWith(List<Beer> beers, int index) {
+    return HomeScreenBeerListLoaded(beers: beers, loadedBeerPageIndex: index);
   }
 
   @override
