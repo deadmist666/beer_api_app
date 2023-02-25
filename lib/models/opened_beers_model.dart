@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'beer_details.dart';
 
 class OpenedBeersModel extends ChangeNotifier {
-  List<Beer> _openedBeersHistory = [];
+  final List<Beer> _openedBeersHistory = [];
 
   List<Beer> get openedBeersHistory => _openedBeersHistory;
 
