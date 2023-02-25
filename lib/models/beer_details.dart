@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class Beer {
-  late final String name;
-  late final String description;
-  late final String image;
-  late final String firstBrewed;
-  late final String tagLine;
-  late final List<dynamic> foodPairing;
-  late final String contributor;
+  final String name;
+  final String description;
+  final String image;
+  final String firstBrewed;
+  final String tagLine;
+  final List<dynamic> foodPairing;
+  final String contributor;
 
-  Beer({
+  const Beer({
     required this.name,
     required this.tagLine,
     required this.firstBrewed,
