@@ -8,7 +8,7 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeScreenAppBar({Key? key}) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(60);
+  Size get preferredSize => const Size.fromHeight(60);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       appBar: AppBar(
         toolbarHeight: 60,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Beer list',
           style: AppTheme.displayMedium,
         ),
@@ -27,11 +27,11 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SearchScreen(),
+                    builder: (context) => const SearchScreen(),
                   ),
                 );
               },
-              icon: Icon(Icons.search))
+              icon: const Icon(Icons.search))
         ],
       ),
     );

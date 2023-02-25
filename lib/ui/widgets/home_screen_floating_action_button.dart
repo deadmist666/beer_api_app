@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'dart:async';
+
+import 'package:flutter/material.dart';
 
 import 'package:beer_api_app/repositories/beer_repository.dart';
 import 'package:beer_api_app/ui/screens/beer_details_screen.dart';
@@ -23,16 +23,11 @@ class _HomeScreenFloatingActionButtonState
   Widget build(BuildContext context) {
     return FloatingActionButton.large(
         backgroundColor: ColorPalette.primaryLimedOak,
-        child: Text(
-          'Random beer',
-          textAlign: TextAlign.center,
-          style: AppTheme.labelMedium,
-        ),
         onPressed: isButtonDisabled
             ? null
             : () async {
                 setState(() => isButtonDisabled = true);
-                Timer(Duration(seconds: 2), () {
+                Timer(const Duration(seconds: 2), () {
                   setState(() => isButtonDisabled = false);
                 });
                 final beer = await Repository().fetchRandomBeer();
@@ -42,6 +37,11 @@ class _HomeScreenFloatingActionButtonState
                     builder: (context) => BeerDetailsScreen(beer: beer),
                   ),
                 );
-              });
+              },
+        child: const Text(
+          'Random beer',
+          textAlign: TextAlign.center,
+          style: AppTheme.labelMedium,
+        ));
   }
 }

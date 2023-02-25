@@ -19,7 +19,7 @@ class SearchBeerListView extends StatelessWidget {
       itemCount: beers.length,
       itemBuilder: (context, index) {
         return ListTile(
-          trailing: Icon(Icons.arrow_back_ios),
+          trailing: const Icon(Icons.arrow_back_ios),
           title: Text(
             beers[index].name,
             style: AppTheme.displaySmall,

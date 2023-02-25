@@ -33,10 +33,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryIconTheme: IconThemeData(color: ColorPalette.primaryWhite),
+          primaryIconTheme:
+              const IconThemeData(color: ColorPalette.primaryWhite),
           textTheme: AppTheme.textTheme,
         ),
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

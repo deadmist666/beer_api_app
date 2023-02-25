@@ -43,7 +43,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
       builder: (context, state) {
         switch (state.runtimeType) {
           case HomeScreenBeerListInitial:
-            return LoadingIndicator();
+            return const LoadingIndicator();
           case HomeScreenBeerListLoaded:
             final beers = (state as HomeScreenBeerListLoaded).beers;
             if (beers.isEmpty) {
@@ -54,7 +54,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
               itemCount: beers.length + 1,
               itemBuilder: (context, index) {
                 if (index >= beers.length) {
-                  return LinearProgressIndicator();
+                  return const LinearProgressIndicator();
                 }
                 return BeerCard(beer: beers[index]);
               },
@@ -64,7 +64,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody>
                 (state as HomeScreenBeerListError).errorMessage;
             return ErrorMessage(errorMessage: errorMessage);
           default:
-            return ErrorMessage(errorMessage: 'Unexpected error');
+            return const ErrorMessage(errorMessage: 'Unexpected error');
         }
       },
     );

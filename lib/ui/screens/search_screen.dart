@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
           decoration: InputDecoration(
             suffixIcon: IconButton(
               color: ColorPalette.primaryWhite,
-              icon: Icon(
+              icon: const Icon(
                 Icons.backspace_outlined,
                 size: 25,
               ),
@@ -63,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_outlined,
             size: 25,
           ),
@@ -80,7 +80,7 @@ class _SearchScreenState extends State<SearchScreen> {
               case SearchBeerHistoryInitial:
                 return SearchBeerListView(beers: beerHistory);
               case SearchBeerLoading:
-                return LoadingIndicator();
+                return const LoadingIndicator();
               case SearchBeerLoaded:
                 return SearchBeerListView(
                     beers: (state as SearchBeerLoaded).beers!);
@@ -88,7 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 return ErrorMessage(
                     errorMessage: (state as SearchBeerError).errorMessage);
               default:
-                return ErrorMessage(errorMessage: 'Unexpected error');
+                return const ErrorMessage(errorMessage: 'Unexpected error');
             }
           }),
     );
@@ -98,7 +98,7 @@ class _SearchScreenState extends State<SearchScreen> {
     if (_debounceTimer?.isActive ?? false) {
       _debounceTimer!.cancel();
     }
-    _debounceTimer = Timer(Duration(milliseconds: 300), () {
+    _debounceTimer = Timer(const Duration(milliseconds: 350), () {
       if (query.isNotEmpty) {
         _beerBloc.add(SearchBeerChangedQuery(query));
       } else {

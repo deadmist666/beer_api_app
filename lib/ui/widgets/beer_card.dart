@@ -15,7 +15,7 @@ class BeerCard extends StatelessWidget {
     return GestureDetector(
       child: Card(
         color: ColorPalette.primaryWhite,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30)),
           side: BorderSide(
             color: ColorPalette.primaryBlack,
@@ -25,7 +25,7 @@ class BeerCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: 150,
               width: 100,
               child: Image(
@@ -41,12 +41,12 @@ class BeerCard extends StatelessWidget {
                     beer.name,
                     style: AppTheme.displaySmall,
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Text(
                     beer.tagLine,
                     style: AppTheme.titleMedium,
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Text(
                     beer.firstBrewed,
                     style: AppTheme.titleSmall,
