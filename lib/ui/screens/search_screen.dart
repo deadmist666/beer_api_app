@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'dart:async';
+
+import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,24 +21,25 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  late SearchBeerBloc beerBloc;
-  final textController = TextEditingController();
-  Timer? debounceTimer;
+  late final SearchBeerBloc _beerBloc;
+  final TextEditingController _textController = TextEditingController();
+  Timer? _debounceTimer;
 
   @override
   void initState() {
     super.initState();
-    beerBloc = context.read<SearchBeerBloc>();
+    _beerBloc = context.read<SearchBeerBloc>();
   }
 
   @override
   Widget build(BuildContext context) {
     final beerHistory =
         Provider.of<OpenedBeersModel>(context).openedBeersHistory;
+
     return Scaffold(
       appBar: AppBar(
         title: TextField(
-          controller: textController,
+          controller: _textController,
           onChanged: onSearchChanged,
           decoration: InputDecoration(
             suffixIcon: IconButton(
@@ -48,8 +49,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 size: 25,
               ),
               onPressed: () {
-                textController.clear();
-                beerBloc.add(SearchBeerClearedQuery());
+                _textController.clear();
+                _beerBloc.add(SearchBeerClearedQuery());
               },
             ),
             hintText: 'Search beer',
@@ -72,42 +73,44 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: ColorPalette.primaryLimedOak,
       ),
       body: BlocBuilder<SearchBeerBloc, SearchBeerState>(
-          bloc: beerBloc,
+          bloc: _beerBloc,
           builder: (context, state) {
-            if (state is SearchBeerInitial) {
-              return SearchBeerListView(beers: beerHistory);
-            } else if (state is SearchBeerHistoryInitial) {
-              return SearchBeerListView(beers: beerHistory);
-            } else if (state is SearchBeerLoading) {
-              return LoadingIndicator();
-            } else if (state is SearchBeerLoaded) {
-              return SearchBeerListView(beers: state.beers!);
-            } else if (state is SearchBeerError) {
-              return ErrorMessage(errorMessage: state.errorMessage);
-            } else {
-              return ErrorMessage(errorMessage: 'Unexpected error');
+            switch (state.runtimeType) {
+              case SearchBeerInitial:
+              case SearchBeerHistoryInitial:
+                return SearchBeerListView(beers: beerHistory);
+              case SearchBeerLoading:
+                return LoadingIndicator();
+              case SearchBeerLoaded:
+                return SearchBeerListView(
+                    beers: (state as SearchBeerLoaded).beers!);
+              case SearchBeerError:
+                return ErrorMessage(
+                    errorMessage: (state as SearchBeerError).errorMessage);
+              default:
+                return ErrorMessage(errorMessage: 'Unexpected error');
             }
           }),
     );
   }
 
   void onSearchChanged(String query) {
-    if (debounceTimer?.isActive ?? false) {
-      debounceTimer!.cancel();
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer!.cancel();
     }
-    debounceTimer = Timer(Duration(milliseconds: 300), () {
+    _debounceTimer = Timer(Duration(milliseconds: 300), () {
       if (query.isNotEmpty) {
-        beerBloc.add(SearchBeerChangedQuery(query));
+        _beerBloc.add(SearchBeerChangedQuery(query));
       } else {
-        beerBloc.add(SearchBeerClearedQuery());
+        _beerBloc.add(SearchBeerClearedQuery());
       }
     });
   }
 
   @override
   void dispose() {
-    textController.dispose();
-    debounceTimer?.cancel();
+    _textController.dispose();
+    _debounceTimer?.cancel();
     super.dispose();
   }
 }
