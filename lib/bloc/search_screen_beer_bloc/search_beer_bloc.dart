@@ -16,20 +16,19 @@ class SearchBeerBloc extends Bloc<SearchBeerEvent, SearchBeerState> {
 
   SearchBeerBloc(this._openedBeersModel) : super(SearchBeerInitial()) {
     List<Beer> beerListHistory = _openedBeersModel.openedBeersHistory;
-    List<Beer> beers;
+    List<Beer> beerResults;
 
     on<SearchBeerChangedQuery>((event, emit) async {
-      final query = await event.query;
+      final query = event.query;
       if (query.isNotEmpty) {
         emit(SearchBeerLoading());
-        beers = await searchBeer(query).timeout(Duration(milliseconds: 1500),
-            onTimeout: () {
-          beers = [];
-          emit(SearchBeerError('Beer not found'));
-          return beers;
+        beerResults = await searchBeer(query)
+            .timeout(const Duration(milliseconds: 1500), onTimeout: () {
+          emit(const SearchBeerError('Beer not found'));
+          return [];
         });
-        if (beers.isNotEmpty) {
-          emit(SearchBeerLoaded(beers: beers));
+        if (beerResults.isNotEmpty) {
+          emit(SearchBeerLoaded(beers: beerResults));
         }
       } else {
         emit(SearchBeerHistoryInitial(beerListHistory));
@@ -47,6 +46,6 @@ class SearchBeerBloc extends Bloc<SearchBeerEvent, SearchBeerState> {
 
   Future<List<Beer>> searchBeer(String query) async {
     final beers = await Repository().fetchBeerSearchResult(query);
-    return await beers;
+    return beers;
   }
 }
