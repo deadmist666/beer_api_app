@@ -1,10 +1,12 @@
 # beer_api_app
 
-A new Flutter project.
+Flutter pet project with the api service implementation
 
-## Getting Started
+## About application
 
-This project is a starting point for a Flutter application.
+This app uses the punk_api service, which fetches a json array. The application processes the data arrays and displays information about each beer.
+It was also my first time experience with the BLoC architecture, so this project served as a test case.
+
 
 A few resources to get you started if this is your first Flutter project:
 
